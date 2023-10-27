@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: first-index
+spec:
+  selector:
+    matchLabels:
+      app: first
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: first
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.18
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: shared-dir
+          mountPath: /usr/share/nginx/html
+        - name: shared-data
+          mountPath: /usr/share/nginx/html/index.html
+      volumes:
+      - name: shared-dir
+        hostPath:
+          path: $HOME/ss-test/first
+          type: DirectoryOrCreate
+      - name: shared-data
+        hostPath:
+          path: $HOME/ss-test/first/index.html
+          type: FileOrCreate

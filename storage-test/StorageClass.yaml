@@ -1,0 +1,9 @@
+apiVersion: storage.k8s.io/v1 
+kind: StorageClass 
+metadata:
+  name: example-vanilla-block-sc 
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: csi.vsphere.vmware.com
+parameters:
+  datastoreurl: "ds:///vmfs/volumes/vsan:52648829d3b32e2c-50458670ec47c061/"
